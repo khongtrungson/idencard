@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="IdenCard-Applet" default="build-cap" basedir=".">
+    <description>
+        Ant build script for compiling IdenCard JavaCard Applet into a .cap file.
+        Compatible with Oracle JavaCard SDK (3.0.4/3.0.5) and ant-javacard.
+    </description>
+
+    <!-- Properties -->
+    <property environment="env"/>
+    <property name="src.dir" value="src/main/java"/>
+    <property name="target.dir" value="target"/>
+    <property name="cap.dir" value="${target.dir}/cap"/>
+    <property name="lib.dir" value="lib"/>
+
+    <!-- JavaCard SDK location (Can be overridden by setting JC_HOME environment variable) -->
+    <property name="jc.home" value="${env.JC_HOME}"/>
+
+    <!-- Applet metadata -->
+    <property name="applet.package" value="com.idencard.applet"/>
+    <property name="package.aid" value="F0:00:00:00:01:01"/>
+    <property name="applet.aid" value="F0:00:00:00:01:01:02:03:04"/>
+    <property name="applet.class" value="com.idencard.applet.IdenCardApplet"/>
+    <property name="applet.version" value="1.0"/>
+
+    <target name="init">
+        <mkdir dir="${target.dir}"/>
+        <mkdir dir="${cap.dir}"/>
+        <mkdir dir="${lib.dir}"/>
+    </target>
+
+    <target name="check-jckit">
+        <condition property="jckit.available">
+            <and>
+                <isset property="jc.home"/>
+                <available file="${jc.home}" type="dir"/>
+            </and>
+        </condition>
+        <fail unless="jckit.available"
+              message="Please set the JC_HOME environment variable to your JavaCard SDK path (e.g., export JC_HOME=/opt/java_card_kit-3_0_5-u4)"/>
+    </target>
+
+    <!-- Download ant-javacard if not present in lib -->
+    <target name="get-ant-javacard" depends="init">
+        <get src="https://github.com/martinpaljak/ant-javacard/releases/download/v20.08.18/ant-javacard.jar"
+             dest="${lib.dir}/ant-javacard.jar"
+             skpc="true"
+             ignoreerrors="true"/>
+    </target>
+
+    <!-- Build CAP using ant-javacard task -->
+    <target name="build-cap" depends="init, check-jckit, get-ant-javacard" description="Build JavaCard CAP file">
+        <taskdef name="javacard" classname="pro.javacard.ant.JavaCard" classpath="${lib.dir}/ant-javacard.jar"/>
+
+        <javacard jckit="${jc.home}">
+            <cap targetsdk="${jc.home}"
+                 output="${cap.dir}/idencard.cap"
+                 sources="${src.dir}"
+                 package="${applet.package}"
+                 version="${applet.version}"
+                 aid="${package.aid}">
+                <applet class="${applet.class}" aid="${applet.aid}"/>
+            </cap>
+        </javacard>
+
+        <echo message="Successfully built CAP file at: ${cap.dir}/idencard.cap"/>
+    </target>
+
+    <!-- Helper target to install on physical card using GlobalPlatformPro -->
+    <target name="deploy-gp" description="Flash CAP to physical smart card using gp.jar">
+        <echo message="Executing: gp --install ${cap.dir}/idencard.cap --default"/>
+        <exec executable="gp" failonerror="true">
+            <arg line="--install ${cap.dir}/idencard.cap --default"/>
+        </exec>
+    </target>
+
+    <target name="clean">
+        <delete dir="${target.dir}"/>
+    </target>
+</project>

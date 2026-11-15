@@ -1,0 +1,43 @@
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Gradle
+.gradle/
+build/
+android-app/.gradle/
+android-app/build/
+android-app/app/build/
+android-app/local.properties
+android-app/*.apk
+android-app/*.aab
+
+# JavaCard
+smartcard/target/
+smartcard/lib/ant-javacard.jar
+*.cap
+*.exp
+*.jca
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.project/
+.classpath
+*.swp
+*~
+.DS_Store
+
+# Logs & DB
+*.log
+idencard_auth.*

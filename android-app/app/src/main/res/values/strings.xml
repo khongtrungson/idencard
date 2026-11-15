@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">IdenCard</string>
+    <string name="title_login">IdenCard SSO Authentication</string>
+    <string name="title_card_operations">IdenCard SmartCard Management</string>
+    <string name="btn_login_sso">Đăng nhập qua SSO</string>
+    <string name="btn_connect_simulator">Kết nối Card Simulator (Socket)</string>
+    <string name="btn_connect_nfc">Quét thẻ vật lý (NFC)</string>
+    <string name="btn_read_info">1. Đọc thông tin thẻ</string>
+    <string name="btn_verify_pin">2. Xác thực mã PIN</string>
+    <string name="btn_get_identity">3. Truy xuất dữ liệu định danh</string>
+    <string name="btn_disconnect">Ngắt kết nối thẻ</string>
+    <string name="hint_pin">Nhập mã PIN (Mặc định: 1234)</string>
+    <string name="status_not_connected">Trạng thái: Chưa kết nối thẻ</string>
+    <string name="status_connected">Trạng thái: Đã kết nối thẻ</string>
+</resources>
