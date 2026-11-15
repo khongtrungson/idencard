@@ -41,3 +41,4 @@ smartcard/lib/ant-javacard.jar
 # Logs & DB
 *.log
 idencard_auth.*
+.*
