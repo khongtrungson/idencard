@@ -44,14 +44,19 @@ public class IdenCardApplet extends Applet {
 
     private final OwnerPIN pin;
 
-    protected IdenCardApplet() {
+    protected IdenCardApplet(byte[] bArray, short bOffset, byte bLength) {
         pin = new OwnerPIN(PIN_MAX_TRIES, PIN_MAX_SIZE);
         pin.update(DEFAULT_PIN, (short) 0, (byte) DEFAULT_PIN.length);
-        register();
+        if (bArray != null && bLength > 0 && bArray[bOffset] > 0) {
+            byte aidLen = bArray[bOffset];
+            register(bArray, (short) (bOffset + 1), aidLen);
+        } else {
+            register();
+        }
     }
 
     public static void install(byte[] bArray, short bOffset, byte bLength) {
-        new IdenCardApplet();
+        new IdenCardApplet(bArray, bOffset, bLength);
     }
 
     @Override

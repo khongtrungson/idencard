@@ -16,55 +16,24 @@
     <name>IdenCard - Smartcard JavaCard Applet</name>
     <description>JavaCard Applet source and Ant build configuration for .cap generation</description>
 
+     <properties>
+        <jc.devkit.tools>${env.JC_HOME_TOOLS}</jc.devkit.tools>
+    </properties>
+
     <dependencies>
         <dependency>
-            <groupId>com.idencard</groupId>
-            <artifactId>common-protocol</artifactId>
+            <groupId>javacard</groupId>
+            <artifactId>api_classic-3.2.0</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${jc.devkit.tools}/lib/api_classic-3.2.0.jar</systemPath>
         </dependency>
-
-        <!-- JavaCard Framework API / Simulator -->
         <dependency>
-            <groupId>com.klinec</groupId>
-            <artifactId>jcardsim</artifactId>
-            <version>3.0.5.3</version>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>oracle.javacard</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <scope>test</scope>
+            <groupId>javacard</groupId>
+            <artifactId>tools</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${jc.devkit.tools}/lib/tools.jar</systemPath>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <!-- Antrun plugin to invoke Ant build.xml for .cap generation -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <id>build-cap-package</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <echo message="To compile CAP files for physical smart card: ant -f build.xml build-cap"/>
-                            </target>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>

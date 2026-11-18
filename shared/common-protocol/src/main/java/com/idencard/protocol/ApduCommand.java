@@ -1,7 +1,6 @@
 package com.idencard.protocol;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Arrays;
 
 /**
  * Helper to construct APDU command byte arrays.

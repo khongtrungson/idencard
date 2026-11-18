@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository
 public interface SpringDataClientRepository extends JpaRepository<ClientJpaEntity, String> {
     Optional<ClientJpaEntity> findByClientId(String clientId);
     boolean existsByClientId(String clientId);

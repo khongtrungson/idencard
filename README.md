@@ -66,20 +66,24 @@ mvn spring-boot:run
 
 ### 3. Biên dịch JavaCard Applet sinh file `.cap`
 
+Quy trình build đã được chuẩn hóa theo cấu hình `.vscode/tasks.json` sử dụng Oracle JavaCard Development Kit Tools (không phụ thuộc Ant):
+
 ```bash
+# Cách 1: Sử dụng script tiện ích từ thư mục gốc
+./run.sh smartcard
+
+# Cách 2: Chạy trực tiếp từ module smartcard
 cd smartcard
+./build.sh
 
-# Thiết lập biến môi trường trỏ đến JavaCard SDK
-export JC_HOME=/path/to/java_card_kit-3_0_5-u4
-
-# Biên dịch ra file .cap
-ant build-cap
-
-# (Nếu có thẻ vật lý và đầu đọc) Nạp trực tiếp lên thẻ:
-ant deploy-gp
+# Cách 3: Nạp Applet lên Simulator
+./build.sh deploy
 ```
 
-File đầu ra: `smartcard/target/cap/idencard.cap`
+- **File đầu ra:** `smartcard/deliverables/com/idencard/applet/javacard/applet.cap`
+- **Môi trường yêu cầu:**
+  - `JC_HOME_TOOLS`: Đường dẫn bộ công cụ JavaCard SDK (`tools`)
+  - `JC_HOME_SIMULATOR`: Đường dẫn bộ giả lập JavaCard (`simulator`)
 
 ---
 

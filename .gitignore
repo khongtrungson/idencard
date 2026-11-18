@@ -22,7 +22,11 @@ android-app/*.aab
 
 # JavaCard
 smartcard/target/
+smartcard/bin/
+smartcard/deliverables/
+smartcard/tools/bin/
 smartcard/lib/ant-javacard.jar
+smartcard/*.img
 *.cap
 *.exp
 *.jca
